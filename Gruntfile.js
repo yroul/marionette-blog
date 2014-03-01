@@ -1,6 +1,6 @@
 'use strict';
 require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
-var mountFolder = function (connect, dir) {
+var mountFolder = function(connect, dir) {
     return connect.static(require('path').resolve(dir));
 };
 
@@ -11,7 +11,7 @@ var mountFolder = function (connect, dir) {
 // 'test/spec/**/*.js'
 // templateFramework: 'handlebars'
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
     // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
     // show elapsed time at the end
@@ -82,7 +82,7 @@ module.exports = function (grunt) {
                 reporter: require('jshint-stylish')
             },
             all: [
-               // 'Gruntfile.js',
+                // 'Gruntfile.js',
                 '<%= yeoman.app %>/scripts/{,*/}*.js',
                 '!<%= yeoman.app %>/scripts/vendor/*',
                 'test/spec/{,*/}*.js'
@@ -95,7 +95,7 @@ module.exports = function (grunt) {
                 options: {
                     // `name` and `out` is set by grunt-usemin
                     //baseUrl: 'app/scripts',//app folder exist only if we use full stack (express +app)
-                    baseUrl : 'scripts',
+                    baseUrl: 'scripts',
                     optimize: 'none',
                     paths: {
                         'templates': '../../.tmp/scripts/templates'
@@ -106,13 +106,14 @@ module.exports = function (grunt) {
                     // required to support SourceMaps
                     // http://requirejs.org/docs/errors.html#sourcemapcomments
                     preserveLicenseComments: false,
+                    findNestedDependencies: true,
                     useStrict: true,
                     wrap: true,
                     //uglify2: {} // https://github.com/mishoo/UglifyJS2
                     pragmasOnSave: {
                         //removes Handlebars.Parser code (used to compile template strings) set
                         //it to `false` if you need to parse template strings even after build
-                        excludeHbsParser : true,
+                        excludeHbsParser: true,
                         // kills the entire plugin set once it's built.
                         excludeHbs: true,
                         // removes i18n precompiler, handlebars and json2
@@ -176,8 +177,8 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        compass : {
-            dist : {
+        compass: {
+            dist: {
                 //to fix for compass use
             }
         },
@@ -215,12 +216,12 @@ module.exports = function (grunt) {
             }
         }
     });
-    grunt.registerTask('createDefaultTemplate', function () {
+    grunt.registerTask('createDefaultTemplate', function() {
         grunt.file.write('.tmp/scripts/templates.js', 'this.JST = this.JST || {};');
     });
 
     // starts express server with live testing via testserver
-    grunt.registerTask('default', function (target) {
+    grunt.registerTask('default', function(target) {
 
         // what is this??
         if (target === 'dist') {
