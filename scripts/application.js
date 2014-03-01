@@ -1,71 +1,57 @@
 define([
-		'backbone',
-		'communicator',
-		'hbs!tmpl/welcome',
-		'views/TestView',
-		'views/Test2View'
-	],
+        'backbone',
+        'communicator',
+        'routers/applicationRouter'
+    ],
 
-	function(Backbone, Communicator, Welcome_tmpl, TestView,Test2View) {
-		'use strict';
+    function(Backbone, Communicator, AppRouter) {
+        'use strict';
 
-		var welcomeTmpl = Welcome_tmpl,
-			App = new Backbone.Marionette.Application();
+        //---------------------------------------------- MAIN APP--------------------------------------
+        var App = new Backbone.Marionette.Application();
 
 
-		/* Add application regions here */
-		App.addRegions({
-			test: "#test",
-			test2 : "#test2"
-		});
+        /* Add application regions here */
+        App.addRegions({
+            // test: "#test",
+            // test2 : "#test2"
+        });
 
-		/* Add initializers here */
-		App.addInitializer(function() {
-			//document.body.innerHTML = welcomeTmpl({ success: "CONGRATS!" });
-			var test = new TestView({
-				Communicator: Communicator
-			});
-
-			App.test.show(test);
+        /* Add initializers here */
+        App.addInitializer(function() {
 
 
-		});
-		App.on("start", function() {
-			console.log("App trigger start");
-			Communicator.mediator.trigger("APP:START");
+            var appRouter = new AppRouter();
+            this.listenTo(appRouter.controller, "HOME_ACTION", function() {
+                if (this.currentModule instanceof Backbone.Marionette.Module) {
+                    console.log('stop current module');
+                    this.currentModule.stop();
+                }
+                App.homeModule.start();
+                this.currentModule = App.homeModule;
+            });
+            this.listenTo(appRouter.controller, "BLOG_ACTION", function() {
+                if (this.currentModule instanceof Backbone.Marionette.Module) {
+                    console.log('stop current module');
+                    this.currentModule.stop();
+                }
 
-			Communicator.mediator.on("CLICK",function(){
-				if(App.module('LoginModule').isRunning){
-					App.module('LoginModule').stop();
-				}else{
-					App.module('LoginModule').start();
-				}
-			});
-		});
+                console.log('we should now start blog module');
+                // App.homeModule.start();
+                // this.currentModule = App.homeModule;
+            });
+
+        });
+        App.on("start", function() {
+            console.log("Application starting...");
+            Communicator.mediator.trigger("APP:START");
+
+            Backbone.history.start();
+
+        });
 
 
 
 
-		var testModule = App.module("LoginModule", function() {
-			this.startWithParent = false;
-		});
-		testModule.addInitializer(function() {
-			console.log("initialize testmodule")
-		});
-		testModule.on("start", function(options) {
-			console.log("start module");
-			this.isRunning = true;
-			var test = new Test2View({
-				Communicator: Communicator
-			});
-
-			App.test.show(test);
-		});
-		testModule.on("stop", function(options) {
-			console.log("stop module");
-			App.test2.close();
-			this.isRunning = false;
-		});
-
-		return App;
-	});
+        return App;
+    });
