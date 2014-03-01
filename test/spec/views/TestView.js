@@ -13,6 +13,8 @@
 
 
 
+
+
 				it('should be an instance of Testview View', function () {
 					var TestView = new Testview({
 						Communicator: Com
@@ -28,13 +30,13 @@
 				});
 				it('should click on button and perform callback', function () {
 					sinon.spy(Testview.prototype, 'onButtonClick');
-					var TestView = new Testview({
+					var testView = new Testview({
 						Communicator: Com
 					});
 
-					TestView.render();
-					TestView.$('.dog').click();
-					expect(TestView.onButtonClick.called).to.be.true;
+					 testView.render();
+					 testView.$('.dog').click();
+					expect(testView.onButtonClick.called).to.be.true;
 					Testview.prototype.onButtonClick.restore();
 				});
 			});

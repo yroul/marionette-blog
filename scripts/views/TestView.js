@@ -24,7 +24,7 @@ define([
             },
             onButtonClick: function() {
                 console.log('click on button');
-                // console.log(this.Communicator.mediator.trigger("CLICK"));
+                this.Communicator.mediator.trigger("CLICK");
             },
             onRender: function() {
                 //         console.log("testview render");
