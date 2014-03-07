@@ -20,8 +20,15 @@ define([
         /* Add initializers here */
         App.addInitializer(function() {
 
+            // to try : define the router like a an App.attribute
+            //like this, inside submodule, i can access to the router...
+            //in module : 
+            //listenTo(parent.appRouter.controller,'eventname',doSomething(){});
+            //but is it usefull ?
+            //warning of memory leak if event stay binded ?
 
             var appRouter = new AppRouter();
+
             this.listenTo(appRouter.controller, "HOME_ACTION", function() {
                 if (this.currentModule instanceof Backbone.Marionette.Module) {
                     console.log('stop current module');
