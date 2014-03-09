@@ -9,7 +9,7 @@ define([
         controller: new Controller,
         appRoutes: {
             '!/home': 'homeAction',
-            '!/home/hello/:name': 'homeHello',
+            '!/home/say/:word/:name': 'homeHello',
             '!/blog': 'blogAction',
             '!/contact': 'contactAction',
         }
