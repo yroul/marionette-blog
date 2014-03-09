@@ -8,7 +8,28 @@ define([
         'use strict';
 
         //---------------------------------------------- MAIN APP--------------------------------------
-        var App = new Backbone.Marionette.Application();
+        var App = new Backbone.Marionette.Application({
+            iDontKnowHowToCallIt: function(module, action, args) {
+                if (this.currentModule instanceof Backbone.Marionette.Module) {
+                    if (this.currentModule !== this[module]) {
+                        console.log('stop current module');
+                        this.currentModule.stop();
+                        this[module].start();
+                        this.currentModule = this[module];
+                    } else {
+                        console.log('module is already running');
+                    }
+
+                } else {
+                    this[module].start();
+                    this.currentModule = App.homeModule;
+                }
+
+                console.log('say to  ' + module + ' module to handle the action ' + action);
+                this.trigger('homeModule:' + action, args);
+            }
+        });
+
 
 
         /* Add application regions here */
@@ -29,24 +50,80 @@ define([
 
             var appRouter = new AppRouter();
 
-            this.listenTo(appRouter.controller, "HOME_ACTION", function() {
-                if (this.currentModule instanceof Backbone.Marionette.Module) {
-                    console.log('stop current module');
-                    this.currentModule.stop();
-                }
-                App.homeModule.start();
-                this.currentModule = App.homeModule;
-            });
-            this.listenTo(appRouter.controller, "BLOG_ACTION", function() {
-                if (this.currentModule instanceof Backbone.Marionette.Module) {
-                    console.log('stop current module');
-                    this.currentModule.stop();
+
+            this.listenTo(appRouter.controller, "DISPATCH", function(eventArgs) {
+                var module = eventArgs[0],
+                    action = eventArgs[1],
+                    args = eventArgs[2];
+
+                console.log('Need to call action "' + action + '" in module "' + module + '" with arguments ', args);
+
+                switch (module) {
+                    case 'HOME':
+                        this.iDontKnowHowToCallIt("homeModule", action, args);
+                        break;
+                    default:
+                        throw 'Error : uknow module ' + module;
+                        break;
                 }
 
-                console.log('we should now start blog module');
-                // App.homeModule.start();
-                // this.currentModule = App.homeModule;
+
+
             });
+
+
+
+
+
+
+            // this.listenTo(appRouter.controller, "HOME_ACTION", function() {
+
+            //     if (this.currentModule instanceof Backbone.Marionette.Module) {
+            //         if (this.currentModule !== App.homeModule) {
+            //             console.log('stop current module');
+            //             this.currentModule.stop();
+            //             App.homeModule.start();
+            //         } else {
+            //             console.log('Home module is already running');
+            //         }
+
+            //     } else {
+            //         App.homeModule.start();
+            //     }
+
+            //     this.currentModule = App.homeModule;
+            // });
+
+            // this.listenTo(appRouter.controller, "HOME:HELLO", function(args) {
+            //     console.log(args)
+            //     if (this.currentModule instanceof Backbone.Marionette.Module) {
+            //         if (this.currentModule !== App.homeModule) {
+            //             console.log('stop current module');
+            //             this.currentModule.stop();
+            //             App.homeModule.start();
+            //         } else {
+            //             console.log('Home module is already running');
+            //         }
+
+            //     } else {
+            //         App.homeModule.start();
+            //     }
+
+            //     this.currentModule = App.homeModule;
+            // });
+
+
+            // this.listenTo(appRouter.controller, "BLOG_ACTION", function() {
+            //     console.log(this.currentModule)
+            //     if (this.currentModule instanceof Backbone.Marionette.Module) {
+            //         console.log('stop current module');
+            //         this.currentModule.stop();
+            //     }
+            //     this.currentModule = undefined;
+            //     console.log('we should now start blog module');
+            //     // App.homeModule.start();
+            //     // this.currentModule = App.homeModule;
+            // });
 
         });
         App.on("start", function() {
