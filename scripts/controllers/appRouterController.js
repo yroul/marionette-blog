@@ -13,18 +13,16 @@ define([
              * @param  Array args
              */
 
-            var dispatch = function(module, action, args) {
+            var dispatch = function(instance, module, action, args) {
 
                 var module = module.toUpperCase(),
                     action = action.toUpperCase();
 
                 if (args) {
-                    console.log('Router : dispatch ("' + module + ':"' + action + ')', args);
-                    ApplicationRouterController.prototype.trigger(module + ':' + action, args);
+                    instance.trigger("DISPATCH", [module, action, args]);
 
                 } else {
-                    console.log('Router : dispatch ("' + module + ':"' + action + ')');
-                    ApplicationRouterController.prototype.trigger(module + ':' + action);
+                    instance.trigger("DISPATCH", [module, action]);
                 }
             };
             return {
@@ -33,16 +31,16 @@ define([
 
                 },
                 homeAction: function() {
-                    dispatch('home', 'default');
+                    dispatch(this, 'home', 'default');
                 },
-                homeHello: function(name) {
-                    dispatch('home', 'hello', name);
+                homeHello: function(word, name) {
+                    dispatch(this, 'home', 'hello', [word, name]);
                 },
                 blogAction: function() {
-                    dispatch('blog', 'default');
+                    dispatch(this, 'blog', 'default');
                 },
                 contactAction: function() {
-                    dispatch('contact', 'default');
+                    dispatch(this, 'contact', 'default');
                 },
                 onClose: function() {
                     // put custom code here, to close this controller
