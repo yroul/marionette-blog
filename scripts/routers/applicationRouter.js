@@ -8,9 +8,10 @@ define([
         initialize: function() {},
         controller: new Controller,
         appRoutes: {
-            "!/home/": "homeAction",
-            "!/blog/": "blogAction",
-            "!/contact/": "contactAction",
+            '!/home': 'homeAction',
+            '!/home/hello/:name': 'homeHello',
+            '!/blog': 'blogAction',
+            '!/contact': 'contactAction',
         }
     });
     return MyRouter;
