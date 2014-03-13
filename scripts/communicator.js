@@ -5,6 +5,8 @@ define([
 function( Backbone ) {
     'use strict';
 
+    var instance = null;
+
 	var Communicator = Backbone.Marionette.Controller.extend({
 		initialize: function( options ) {
 			console.log("initialize a Communicator");
@@ -19,6 +21,9 @@ function( Backbone ) {
 			this.command = new Backbone.Wreqr.Commands();
 		}
 	});
+    if(instance === null){
+        instance = new Communicator();
+    }
 
-	return new Communicator();
+	return instance;
 });
