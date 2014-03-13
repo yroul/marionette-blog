@@ -10,6 +10,8 @@ define([
         //---------------------------------------------- MAIN APP--------------------------------------
         var App = new Backbone.Marionette.Application({
             iDontKnowHowToCallIt: function(module, action, args) {
+
+
                 if (this.currentModule instanceof Backbone.Marionette.Module) {
                     if (this.currentModule !== this[module]) {
                         console.log('stop current module');
@@ -17,15 +19,15 @@ define([
                         this[module].start();
                         this.currentModule = this[module];
                     } else {
-                        console.log('module is already running');
+                        console.log("module " + module + " already running")
                     }
 
                 } else {
+                    console.log('startModule');
                     this[module].start();
                     this.currentModule = App.homeModule;
                 }
-
-                console.log('say to  ' + module + ' module to handle the action ' + action);
+                console.log("app trigger =>"+'homeModule:' + action, args);
                 this.trigger('homeModule:' + action, args);
             }
         });
@@ -34,7 +36,7 @@ define([
 
         /* Add application regions here */
         App.addRegions({
-            // test: "#test",
+            testRegion: "#test",
             // test2 : "#test2"
         });
 
@@ -56,7 +58,7 @@ define([
                     action = eventArgs[1],
                     args = eventArgs[2];
 
-                console.log('Need to call action "' + action + '" in module "' + module + '" with arguments ', args);
+
 
                 switch (module) {
                     case 'HOME':
