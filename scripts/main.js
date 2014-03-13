@@ -6,7 +6,7 @@ require([
     function(Backbone, App) {
         'use strict';
 
-        require(['modules/homeModule'],
+        require(['modules/homeModule','modules/navigationModule'],
             function() {
                 App.start();
             });
