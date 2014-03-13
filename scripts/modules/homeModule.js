@@ -16,7 +16,7 @@ define(['application', 'communicator', 'views/TestView'], function(App, Communic
         this.listenTo(App, 'homeModule:DEFAULT',function(args){
         });
         var view  = new TestView();
-        App.testRegion.show(view);
+        App.content.show(view);
     });
     homeModule.on("start", function(options) {
         console.log("Module : homeModule is starting...");

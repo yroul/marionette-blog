@@ -6,14 +6,13 @@ define(function(require) {
         // <3
         var Backbone = require('backbone'),
             Template = require('hbs!tmpl/TestViewTmpl_tmpl'),
-            Colors = require('i18n!../nls/colors');
+            Colors = require('i18n!../nls/colors'),
+            Communicator = require('communicator');
 
         return Backbone.Marionette.ItemView.extend({
+
             initialize: function(options) {
-                // this.Communicator = options.Communicator;
-                // this.Communicator.mediator.on("APP:START", function() {
-                //     console.log("TestView heard about an application starting...")
-                // });
+
             },
             template: Template({
                 helloWorld: Colors.green
@@ -26,7 +25,7 @@ define(function(require) {
             },
             onButtonClick: function() {
                 console.log('click on button');
-                //this.Communicator.mediator.trigger("CLICK");
+                Communicator.mediator.trigger("CLICK");
             },
             onRender: function() {
                 console.log("testview render");
