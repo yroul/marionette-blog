@@ -27,8 +27,8 @@ define([
                     this[module].start();
                     this.currentModule = this[module];
                 }
-                console.log("app trigger =>"+'homeModule:' + action, args);
-                this.trigger(this[module]+':' + action, args);
+                console.log("app trigger => " +module+":"+ action, args);
+                this.trigger(module+':' + action, args);
             }
         });
 

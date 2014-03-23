@@ -1,33 +1,44 @@
-//WARNING : require another communicator(which IS NOT a singleton, may cause trigger to be loose)
-//two or many communicators have no link between each other
-//EDIT : Not sure about that
-define(['application', 'communicator', 'views/TestView'], function(App, Communicator, TestView) {
 
-    var homeModule = App.module("homeModule", function(homeModule, App, Backbone, Marionette, $, _) {
+define(['application', 'communicator', 'views/TestView'], function(App, Communicator, TestView) {
+    'use strict';
+
+
+
+    var homeModule = App.module('homeModule', function(homeModule, App, Backbone) {
         this.startWithParent = false;
-    });
-    homeModule.test = function(args) {
-        console.log('Home module default action');
-    };
-    homeModule.addInitializer(function() {
-        this.listenTo(App, 'homeModule:HELLO', function(args) {
-            console.log('HomeModuleSay Hello')
+
+
+        this.test = function() {
+            console.log('Home module default action');
+        };
+        this.addInitializer(function() {
+            this.listenTo(App, 'homeModule:HELLO', function() {
+                console.log('HomeModuleSay Hello');
+
+                var view  = new TestView();
+                App.content.show(view);
+            });
+            this.listenTo(App, 'homeModule:DEFAULT',function(){
+                console.log('homeModule:DEFAULT');
+                App.content.show(new Backbone.Marionette.View({
+                    tagName: 'p'
+                }));
+            });
         });
-        this.listenTo(App, 'homeModule:DEFAULT',function(args){
+        this.on('start', function() {
+            console.log('Module : homeModule is starting...');
+            Communicator.mediator.trigger('HOME_MODULE:START');
+            this.isRunning = true;
         });
-        var view  = new TestView();
-        App.content.show(view);
+
+        this.on('stop', function() {
+            console.log('Module : homeModule is stopping...');
+            Communicator.mediator.trigger('HOME_MODULE:STOP');
+            this.isRunning = false;
+        });
+
     });
-    homeModule.on("start", function(options) {
-        console.log("Module : homeModule is starting...");
-        Communicator.mediator.trigger("HOME_MODULE:START");
-        this.isRunning = true;
-    });
-    homeModule.on("stop", function(options) {
-        console.log("Module : homeModule is stopping...");
-        Communicator.mediator.trigger("HOME_MODULE:STOP");
-        this.isRunning = false;
-    });
+
 
     return homeModule;
 
