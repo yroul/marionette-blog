@@ -29,6 +29,7 @@ module.exports = function(grunt) {
         // watch list
         watch: {
             livereload: {
+                //TODO Setup livereload when styles/main.css change
                 files: [
                     'scripts/{,**/}*.js',
                     'templates/{,**/}*.hbs',
@@ -38,6 +39,12 @@ module.exports = function(grunt) {
                 options: {
                     livereload: true
                 }
+            },
+            css: {
+                files: [
+                    'styles/{,*/}*.css'
+                ],
+                tasks: ['cssmin:dev']
             }
             /* not used at the moment
             handlebars: {
@@ -151,7 +158,17 @@ module.exports = function(grunt) {
                 files: {
                     '<%= yeoman.dist %>/styles/main.css': [
                         '.tmp/styles/{,*/}*.css',
-                        '<%= yeoman.app %>/styles/{,*/}*.css'
+                        '<%= yeoman.app %>/styles/{,*/}*.css',
+                        '!<%= yeoman.app %>/styles/main.css'
+                    ]
+                }
+            },
+            dev: {
+                files: {
+                    '<%= yeoman.app %>/styles/main.css': [
+                        '.tmp/styles/{,*/}*.css',
+                        '<%= yeoman.app %>/styles/{,*/}*.css',
+                        '!<%= yeoman.app %>/styles/main.css'
                     ]
                 }
             }

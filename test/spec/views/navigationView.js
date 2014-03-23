@@ -15,9 +15,9 @@
 					expect( navigationView ).to.be.an.instanceof( Navigationview );
 				});
 
-				it('should have more test written', function(){
+				/*it('should have more test written', function(){
 					expect( false ).to.be.ok;
-				});
+				});*/
 			});
 
 		});

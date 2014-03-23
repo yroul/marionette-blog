@@ -9,7 +9,7 @@ define([
 
         //---------------------------------------------- MAIN APP--------------------------------------
         var App = new Backbone.Marionette.Application({
-            iDontKnowHowToCallIt: function(module, action, args) {
+            dispatch: function(module, action, args) {
 
 
                 if (this.currentModule instanceof Backbone.Marionette.Module) {
@@ -63,7 +63,7 @@ define([
 
                 switch (module) {
                     case 'HOME':
-                        this.iDontKnowHowToCallIt("homeModule", action, args);
+                        this.dispatch("homeModule", action, args);
                         break;
                     default:
                         throw 'Error : uknow module ' + module;

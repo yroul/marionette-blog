@@ -6,6 +6,8 @@ define(function() {
 		specs: ['spec/exampleTest.js',
 		'spec/routers/test.js',
 		'spec/views/TestView.js',
+		'spec/views/collection/navbarView.js',
+		'spec/views/item/navbarItem.js',
 		'spec/views/navigationView.js'
 		]
 	};
