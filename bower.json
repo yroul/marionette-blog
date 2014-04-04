@@ -16,9 +16,9 @@
     "mocha": "~1.12.0",
     "chai": "~1.7.2",
     "sinonjs": "~1.7.3",
-    "requirejs-i18n": "~2.0.4"
+    "requirejs-i18n": "~2.0.4",
+    "q": "~2.0.0"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "directory": "bower_components"
 }
