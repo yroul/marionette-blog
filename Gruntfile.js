@@ -95,6 +95,15 @@ module.exports = function(grunt) {
                 'test/spec/{,*/}*.js'
             ]
         },
+        uglify: {
+            options: {
+                compress: {
+                    global_defs: {
+                        $DEBUG: true
+                    }
+                }
+            }
+        },
         // require
         requirejs: {
             dist: {
@@ -125,7 +134,8 @@ module.exports = function(grunt) {
                         excludeHbs: true,
                         // removes i18n precompiler, handlebars and json2
                         excludeAfterBuild: true
-                    }
+                    },
+                    generateSourceMaps: false
                 }
             }
         },
