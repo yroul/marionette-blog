@@ -2,7 +2,6 @@
   "name": "marionette",
   "version": "0.0.0",
   "dependencies": {
-    "sass-bootstrap": "~2.3.0",
     "jquery": "~1.9.0",
     "requirejs": "~2.1.5",
     "requirejs-text": "~2.0.5",
@@ -17,7 +16,8 @@
     "chai": "~1.7.2",
     "sinonjs": "~1.7.3",
     "requirejs-i18n": "~2.0.4",
-    "q": "1.0.1"
+    "q": "1.0.1",
+    "bootstrap-less": "~3.1.1"
   },
   "devDependencies": {},
   "directory": "bower_components"
