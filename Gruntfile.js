@@ -192,7 +192,7 @@ module.exports = function(grunt) {
         less: {
             compile: {
                 options: {
-                    paths: ['styles/','bower_components/bootstrap-less/less/']
+                    paths: ['styles/','bower_components/bootstrap-less/less/','bower_components/components-font-awesome/less/']
                 },
                 files: {
                     'styles/less.css': ['styles/{,*/}*.less']
