@@ -45,6 +45,12 @@ module.exports = function(grunt) {
                     'styles/{,*/}*.css'
                 ],
                 tasks: ['cssmin:dev']
+            },
+            less:{
+                files: [
+                    'styles/{,*/}*.less'
+                ],
+                tasks: ['less:compile']
             }
             /* not used at the moment
             handlebars: {
@@ -180,6 +186,16 @@ module.exports = function(grunt) {
                         '<%= yeoman.app %>/styles/{,*/}*.css',
                         '!<%= yeoman.app %>/styles/main.css'
                     ]
+                }
+            }
+        },
+        less: {
+            compile: {
+                options: {
+                    paths: ['styles/']
+                },
+                files: {
+                    'styles/less.css': ['styles/{,*/}*.less']
                 }
             }
         },
