@@ -14,6 +14,7 @@ function( Backbone, Navbaritem  ) {
             //public
             return {
                 tagName: 'ul',
+                className: 'list-unstyled list-inline',
 
                 initialize: function(opts) {
                     console.log('initialize a Navbarview CollectionView');
